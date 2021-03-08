@@ -34,4 +34,22 @@ describe('AcmInlineStatus', () => {
         userEvent.click(getByText('foobar'))
         await waitFor(() => expect(getByText('Header')).toBeInTheDocument())
     })
+    test('should allow a popover window on click with statustext', async () => {
+        const { getByText } = render(
+            <AcmInlineStatus
+                type={StatusType.healthy}
+                status="foobar"
+                popover={{
+                    headerContent: 'Header',
+                    bodyContent: 'Some information about the status here.',
+                    footerContent: <a href="#">Status link</a>,
+                }}
+                statusText="barfoo"
+            />
+        )
+        expect(getByText('foobar')).toBeInTheDocument()
+        expect(getByText('barfoo (')).toBeInTheDocument()
+        userEvent.click(getByText('foobar'))
+        await waitFor(() => expect(getByText('Header')).toBeInTheDocument())
+    })
 })

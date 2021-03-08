@@ -40,7 +40,7 @@ export enum StatusType {
     'sleep' = 'sleep',
 }
 
-export function AcmInlineStatus(props: { type: StatusType; status: string | React.ReactNode; popover?: PopoverProps }) {
+export function AcmInlineStatus(props: { type: StatusType; status: string | React.ReactNode; popover?: PopoverProps; statusText?: string }) {
     const classes = useStyles()
     return (
         <div className={classes.container}>
@@ -48,15 +48,21 @@ export function AcmInlineStatus(props: { type: StatusType; status: string | Reac
                 <StatusIcon type={props.type} />
             </div>
             <span style={{ marginLeft: '.4rem' }}>
-                {props.popover ? (
-                    <Popover hasAutoWidth {...props.popover}>
-                        <Button variant="link" className={classes.button}>
-                            {props.status}
-                        </Button>
-                    </Popover>
-                ) : (
-                    props.status
-                )}
+                {props.popover && props.statusText ? (
+                    <span>{props.statusText + " ("}</span>
+                ) : (undefined)}
+                 {props.popover ? (
+                     <Popover hasAutoWidth {...props.popover}>
+                         <Button variant="link" className={classes.button}>
+                             {props.status}
+                         </Button>
+                     </Popover>
+                 ) : (
+                     props.status
+                 )}
+                {props.popover && props.statusText ? (
+                    <span>{")"}</span>
+                ) : (undefined)}
             </span>
         </div>
     )

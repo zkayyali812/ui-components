@@ -48,6 +48,29 @@ export const InlineStatusWithPopover = () => {
     )
 }
 
+export const InlineStatusWithPopoverAsNestedLink = () => {
+    return (
+        <Card>
+            <CardBody>
+                <AcmInlineStatus
+                    type={StatusType.healthy}
+                    status="Action available"
+                    popover={{
+                        headerContent: 'Status header',
+                        bodyContent: 'Some information about the status here.',
+                        footerContent: (
+                            <a href="#">
+                                Status link <ExternalLinkAltIcon />
+                            </a>
+                        ),
+                    }}
+                    statusText="Connection valid"
+                />
+            </CardBody>
+        </Card>
+    )
+}
+
 InlineStatus.args = {
     status: 'Ready',
     type: StatusType.healthy,
